@@ -5,6 +5,7 @@
  *      Author: vanti
  */
 #include "Utility.h"
+#include "string.h"
 #include "math.h"
 void reverseStr(char* str, int len)
 {
@@ -80,16 +81,20 @@ float StrToFloat(char *string)
     int dotPosition = 0;
 
     for (int i = 0; i < len; i++)
-    {
-        if (string[i] == '.')
-        {
-          dotPosition = len - i  - 1;
-        }
-        else
-        {
-          result = result * 10.0 + (string[i]-'0');
-        }
-      }
+	{
+    	if (string[i] == '.')
+		{
+    		dotPosition = len - i  - 1;
+		}
+		else
+		{
+			if(string[i] < '0' || string[i] > '9')
+			{
+				return result;
+			}
+			result = result * 10.0 + (string[i]-'0');
+		}
+	}
 
       while (dotPosition--)
       {
