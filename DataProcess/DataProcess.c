@@ -7,7 +7,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "stdlib.h"
-#include "Utility/Utility.h"
+#include "DataProcess.h"
 
 int DataPack_Split(char* str, uint8_t* ID, char *pValue)
 {
@@ -44,5 +44,12 @@ int DataPack_GetLEDState(char* str, int* LEDLeft, int* LEDRight, int* LEDFront, 
 int DataPack_GetSpeakerState(char* str, int* SpeakerState)
 {
 	*SpeakerState = atoi(str);
+	return 0;
+}
+
+int DataPack_GetSteerAngle(char* str, float* Angle)
+{
+
+	*Angle = StrToFloat(str);
 	return 0;
 }
