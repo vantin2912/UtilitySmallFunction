@@ -19,6 +19,7 @@ int DataPack_Split(char* str, uint8_t* ID, char *pValue)
 	tok = strtok(NULL,"=");
 	if(tok == NULL) return 1;
 	strcpy(pValue, tok);
+	tok = strtok(pValue,"\r");
 	return 0;
 }
 
@@ -51,5 +52,12 @@ int DataPack_GetSteerAngle(char* str, float* Angle)
 {
 
 	*Angle = StrToFloat(str);
+	return 0;
+}
+
+int DataPack_GetSpeed(char* str, float* Speed)
+{
+
+	*Speed = StrToFloat(str);
 	return 0;
 }

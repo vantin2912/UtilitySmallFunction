@@ -79,10 +79,14 @@ float StrToFloat(char *string)
     float result= 0.0;
     int len = strlen(string);
     int dotPosition = 0;
-
+    uint8_t isNegNumber = 0;
     for (int i = 0; i < len; i++)
 	{
-    	if (string[i] == '.')
+    	if(i == 0 && string[i] == '-')
+    	{
+    		isNegNumber = 1;
+    	}
+    	else if (string[i] == '.')
 		{
     		dotPosition = len - i  - 1;
 		}
@@ -101,5 +105,5 @@ float StrToFloat(char *string)
         result /= 10.0;
       }
 
-    return result;
+    return isNegNumber ? - result: result;
 }
