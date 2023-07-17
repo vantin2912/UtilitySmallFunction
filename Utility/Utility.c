@@ -35,6 +35,7 @@ int intToStr(int x, char str[], int d)
     str[i] = '\0';
     return i;
 }
+
 static int pow10[] = {
         1, 10, 100, 1000, 10000,
         100000, 1000000, 10000000, 100000000, 1000000000
@@ -50,18 +51,25 @@ int FloatToStr(float n, char* res, int afterpoint)
 
 	if(afterpoint > sizeof(pow10)) return 1;
     // Extract integer part
+	uint8_t offset = 0;
+	if(n < 0)
+	{
+		offset = 1;
+		n = -n;
+		res[0] = '-';
+	}
     int ipart = (int)n;
 
     // Extract floating part
     float fpart = n - (float)ipart;
 
     // convert integer part to string
-    int i = intToStr(ipart, res, 0);
-
+    int i = intToStr(ipart, res + offset, 0);
+    offset += i;
     // check for display option after point
     if (afterpoint != 0) {
-        res[i] = '.'; // add dot
-
+        res[offset] = '.'; // add dot
+        offset++;
         // Get the value of fraction part upto given no.
         // of points after dot. The third parameter
         // is needed to handle cases like 233.007
@@ -69,7 +77,7 @@ int FloatToStr(float n, char* res, int afterpoint)
 //        fpart = fpart*10;
 //        fpart = fpart* pow(10, afterpoint);
 
-        intToStr((int)fpart, res + i + 1, afterpoint);
+        intToStr((int)fpart, res + offset, afterpoint);
     }
     return 0;
 }
